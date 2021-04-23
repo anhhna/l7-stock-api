@@ -10,6 +10,7 @@ def main():
 
 
 @app.route('/stock/<code>')
+@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def stock(code):
     list = []
     if code == 'appl':
