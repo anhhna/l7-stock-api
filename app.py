@@ -1,10 +1,8 @@
 from flask import Flask, jsonify, render_template
-from flask.ext.cors import CORS, cross_origin
 
 # App Globals (do not edit)
 app = Flask(__name__)
-cors = CORS(app, resources={r"/stock": {"origins": "*"}})
-app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 @app.route('/')
 def main():
@@ -12,7 +10,6 @@ def main():
 
 
 @app.route('/stock/<code>')
-@cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def stock(code):
     list = []
     if code == 'appl':
@@ -45,7 +42,9 @@ def stock(code):
             'c':'+4.7655',
             'cp':'-0.12'
         }]
-    return jsonify(list)
+    response = jsonify(list)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
     
 
 if __name__ == '__main__':
