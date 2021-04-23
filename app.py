@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, render_template
+from flask.ext.cors import CORS, cross_origin
 
 # App Globals (do not edit)
 app = Flask(__name__)
-
+cors = CORS(app, resources={r"/stock": {"origins": "*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 @app.route('/')
 def main():
